@@ -95,7 +95,7 @@ contract FSFIConfig is IFSFIConfig, Initializable {
     //     }
     // }
 
-    function getfsfiActiveCoins(
+    function getFsfiActiveCoins(
         IERC20Standard _tokenAddress
     ) public view returns (bool) {
         return fsfiActiveCoins[_tokenAddress];

@@ -78,7 +78,7 @@ contract FSFI is IFSFI, Initializable {
         IFSFILoan _fsfiLoan
     ) external initializer {
         for (uint i = 0; i < _fsfiPools.length; i++) {
-            cfsfiPools[_fsfiPoolStableCoin[i]] = _fsfiPools[i];
+            fsfiPools[_fsfiPoolStableCoin[i]] = _fsfiPools[i];
         }
         loandIds = 1;
         owner = msg.sender;

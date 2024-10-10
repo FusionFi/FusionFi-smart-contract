@@ -49,7 +49,7 @@ contract FSFILoan is IFSFILoan, Initializable {
     function initialize(
         DataTypes.Loan memory _loan,
         IERC20Standard _collateralToken,
-        iFSFIConfig _iFSFIConfig
+        IFSFIConfig _iFSFIConfig
     ) external initializer {
         owner = msg.sender;
         iFSFIConfig = _iFSFIConfig;
