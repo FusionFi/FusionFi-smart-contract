@@ -7,7 +7,7 @@ import { expect } from "chai";
 import hre from "hardhat";
 import { assert, parseUnits } from "ethers";
 
-describe.skip("fsfiPool contract", function () {
+describe("fsfiPool contract", function () {
   // We define a fixture to reuse the same setup in every test.
   // We use loadFixture to run this setup once, snapshot that state,
   // and reset Hardhat Network to that snapshot in every test.
@@ -44,9 +44,9 @@ describe.skip("fsfiPool contract", function () {
         parseUnits("3", 27).toString()
       );
 
-    const fsfiPool = await hre.ethers.getContractFactory("fsfiPool");
+    const FSFIPool = await hre.ethers.getContractFactory("FSFIPool");
     const fsfiPool = await hre.upgrades.deployProxy(
-      fsfiPool,
+      FSFIPool,
       [
         await usdc.getAddress(),
         await defaultReserveInterestRateStrategy.getAddress(),
