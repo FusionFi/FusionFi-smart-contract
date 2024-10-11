@@ -2,9 +2,9 @@ import { bigint } from "hardhat/internal/core/params/argumentTypes";
 
 const { ethers } = require("hardhat");
 
-let pool = "0x0Bf6868f8E100c142BA1304435cBDdfF3e6416F3";
-let fsfi = "0x023CE898cB9E07688594014dd7F05b82844AfbBa";
-let usdtPool = "0xeaE813a7eb9A003ba5e8905F977c578c53aea5E5";
+let pool = "0x72C038736F191e0868A05bFD6e0a6D6DFE8c0A3C";
+let fsfi = "0x0f78315aaC4F053Cf3D05999FD0A3bC3d40ab326";
+let usdtPool = "0xEBE2E725ef9f2f91182886223ef5fB576AC41808";
 
 // let fsfi = "0xB07c62E2a4E3da8465fa207965da12787b9188fc";
 // let usdtPool = "0xa00Ae2a3aeFd3002EDE22523E12BF28D4676596A";
@@ -332,40 +332,40 @@ async function getMinimumCollateral(usdcAmount: any) {
   console.log(`Got ${estimateHeathFactor} health-factor`);
 }
 
-describe.skip("sepolia", () => {
+describe("sepolia", () => {
   describe("FSFI Pool", () => {
-    it("approve usdc", async () => {
+    it.only("approve usdc", async () => {
       const AMOUNT = ethers.parseUnits("600", 6);
       await approveUsdc(AMOUNT);
       await allowanceUsdc();
     });
 
-    it("supply", async () => {
+    it.only("supply", async () => {
       const AMOUNT = ethers.parseUnits("600", 6);
       await supplyUsdc(AMOUNT);
     });
   });
 
   describe("FSFI Pool usdt", () => {
-    it("approve usdt", async () => {
+    it.only("approve usdt", async () => {
       const AMOUNT = ethers.parseUnits("600", 6);
       await approveUsdt(AMOUNT);
       await allowanceUsdt();
     });
 
-    it("supply", async () => {
+    it.only("supply", async () => {
       const AMOUNT = ethers.parseUnits("600", 6);
       await supplyUsdt(AMOUNT);
     });
   });
 
   describe("FSFI", () => {
-    it("approve wbtc", async () => {
+    it.only("approve wbtc", async () => {
       const AMOUNT = ethers.parseUnits("0.1", 8);
       await approveWBTC(AMOUNT);
     });
 
-    it("create a loan", async () => {
+    it.only("create a loan", async () => {
       await createLoan();
     });
 
@@ -413,12 +413,12 @@ describe.skip("sepolia", () => {
   });
 
   describe("FSFI usdt", () => {
-    it("approve wbtc", async () => {
+    it.only("approve wbtc", async () => {
       const AMOUNT = ethers.parseUnits("0.1", 8);
       await approveWBTC(AMOUNT);
     });
 
-    it("create a loan", async () => {
+    it.only("create a loan", async () => {
       await createLoanUSDT();
     });
 

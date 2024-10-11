@@ -97,7 +97,7 @@ describe("fsfiLoan contract", function () {
         [await link.getAddress()],
         [await mockAggr2.getAddress()],
         [await aToken.getAddress()],
-        [await mockPoolAddressesProvider.getAddress()],
+        [await mockPoolAddressesProvider.getAddress("")],
         7000,
         7500,
         await fsfiLoan.getAddress(),

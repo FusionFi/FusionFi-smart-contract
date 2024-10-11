@@ -36,16 +36,16 @@ const ProxyFSFIModule = buildModule("ProxyFSFIModule", (m) => {
 
   const proxyAdminOwner = m.getAccount(0);
 
-  const fsfiPool = m.contract("FSFIPool");
-  const fsfiPoolUSDT = m.contract("FSFIPool", [], { id: "fsfiPoolUSDT" });
+  const FSFIPool = m.contract("FSFIPool");
+  const FSFIPoolUSDT = m.contract("FSFIPool", [], { id: "FSFIPoolUSDT" });
 
-  const dataPool = m.encodeFunctionCall(fsfiPool, "initialize", [
+  const dataPool = m.encodeFunctionCall(FSFIPool, "initialize", [
     usdc,
     defaultReserveInterestRateStrategy,
     100000000000000,
   ]);
 
-  const dataPoolUSDT = m.encodeFunctionCall(fsfiPoolUSDT, "initialize", [
+  const dataPoolUSDT = m.encodeFunctionCall(FSFIPoolUSDT, "initialize", [
     usdt,
     defaultReserveInterestRateStrategy,
     100000000000000,
@@ -53,7 +53,7 @@ const ProxyFSFIModule = buildModule("ProxyFSFIModule", (m) => {
 
   const proxyPool = m.contract(
     "TransparentUpgradeableProxy",
-    [fsfiPool, proxyAdminOwner, dataPool],
+    [FSFIPool, proxyAdminOwner, dataPool],
     { id: "proxyPool" }
   );
 
@@ -70,7 +70,7 @@ const ProxyFSFIModule = buildModule("ProxyFSFIModule", (m) => {
 
   const proxyUSDTPool = m.contract(
     "TransparentUpgradeableProxy",
-    [fsfiPool, proxyAdminOwner, dataPoolUSDT],
+    [FSFIPool, proxyAdminOwner, dataPoolUSDT],
     { id: "proxyPoolUSDT" }
   );
 
@@ -201,11 +201,11 @@ const ProxyFSFIModule = buildModule("ProxyFSFIModule", (m) => {
     id: "ProxyFSFIadmin",
   });
 
-  const fsfiPoolProxyRemap = m.contractAt("fsfiPool", proxyPool, {
+  const fsfiPoolProxyRemap = m.contractAt("FSFIPool", proxyPool, {
     id: "fsfiPoolProxyRemap",
   });
 
-  const fsfiPoolUSDTProxyRemap = m.contractAt("fsfiPool", proxyUSDTPool, {
+  const fsfiPoolUSDTProxyRemap = m.contractAt("FSFIPool", proxyUSDTPool, {
     id: "fsfiPoolUSDTProxyRemap",
   });
 
