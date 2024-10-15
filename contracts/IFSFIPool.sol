@@ -70,7 +70,8 @@ interface IFSFIPool {
     function initialize(
         IERC20Standard _stableCoinAddress,
         address interestRateStrategyAddress,
-        uint _cap
+        uint _cap,
+        address _encryptus
     ) external;
 
     function getTotalSupply() external view returns (uint256);

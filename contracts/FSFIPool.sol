@@ -30,10 +30,12 @@ contract FSFIPool is IFSFIPool, Initializable {
 
     uint public remainingPool;
 
-    address owner;
+    address public owner;
     bool public isPaused;
 
     mapping(address => uint) public depositWithdrawAmount;
+
+    address public encryptus;
 
     uint public cap;
     modifier onlyFSFI() {
@@ -63,7 +65,8 @@ contract FSFIPool is IFSFIPool, Initializable {
     function initialize(
         IERC20Standard _stableCoinAddress,
         address _interestRateStrategyAddress,
-        uint _cap
+        uint _cap,
+        address _encryptus
     ) external initializer {
         stableCoinAddress = _stableCoinAddress;
         reserve.interestRateStrategyAddress = _interestRateStrategyAddress;
@@ -72,6 +75,7 @@ contract FSFIPool is IFSFIPool, Initializable {
         owner = msg.sender;
         operators[msg.sender] = true;
         cap = _cap;
+        encryptus = _encryptus;
     }
 
     function setOperators(
@@ -89,6 +93,10 @@ contract FSFIPool is IFSFIPool, Initializable {
 
     function setCap(uint _cap) public onlyOperator {
         cap = _cap;
+    }
+
+    function setEncryptus(address _encryptus) public onlyOperator {
+        encryptus = _encryptus;
     }
 
     function setReserveInterestRateStrategy(
@@ -325,7 +333,11 @@ contract FSFIPool is IFSFIPool, Initializable {
         updateInterestRates(0, rayAmount);
         totalLiquidity -= rayAmount.rayDiv(reserveCache.nextLiquidityIndex);
         remainingPool -= _amount;
-        stableCoinAddress.transfer(_borrower, loans[_loanId].amount);
+        if (!_isFiat) {
+            stableCoinAddress.transfer(_borrower, loan.amount);
+        } else {
+            stableCoinAddress.transfer(encryptus, loan.amount);
+        }
     }
 
     function repay(uint _loanId, uint256 _amount) public onlyFSFI onlyUnpaused {
