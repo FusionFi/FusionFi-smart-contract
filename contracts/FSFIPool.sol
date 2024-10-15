@@ -280,7 +280,7 @@ contract FSFIPool is IFSFIPool, Initializable {
         uint256 totalUnscale = (total.rayMul(reserve.liquidityIndex) *
             (10 ** stableCoinAddress.decimals())) / uint128(WadRayMath.RAY);
         if (totalUnscale < depositWithdrawAmount[msg.sender])
-            depositWithdrawAmount[msg.sender] -= totalUnscale;
+            depositWithdrawAmount[msg.sender] = totalUnscale;
 
         emit WithdrawSupply(
             msg.sender,
