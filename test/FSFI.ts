@@ -22,6 +22,7 @@ describe("FSFI system", function () {
       lender3,
       liquidator,
       platform,
+      encryptus,
     ] = await hre.ethers.getSigners();
 
     const WETH9 = await hre.ethers.getContractFactory("WETH9");
@@ -69,6 +70,7 @@ describe("FSFI system", function () {
         await usdc.getAddress(),
         await defaultReserveInterestRateStrategy.getAddress(),
         BigInt(1000000000e18),
+        encryptus.address,
       ],
       { initializer: "initialize" }
     );
@@ -89,6 +91,7 @@ describe("FSFI system", function () {
         await usdt.getAddress(),
         await defaultReserveInterestRateStrategy.getAddress(),
         BigInt(1000000000e18),
+        encryptus.address,
       ],
       { initializer: "initialize" }
     );
@@ -284,7 +287,8 @@ describe("FSFI system", function () {
           BigInt(500e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
       // console.log("remain", (await fsfiPool.getRemainingPool()) / BigInt(1e18));
       // console.log(
@@ -309,7 +313,8 @@ describe("FSFI system", function () {
           BigInt(300e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
 
       await wBTC.connect(borrower1).approve(fsfi.getAddress(), BigInt(200e18));
@@ -321,7 +326,8 @@ describe("FSFI system", function () {
           BigInt(200e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
     });
 
@@ -366,7 +372,8 @@ describe("FSFI system", function () {
           BigInt(1000e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
       // console.log("remain", (await fsfiPool.getRemainingPool()) / BigInt(1e18));
       // console.log(
@@ -419,7 +426,8 @@ describe("FSFI system", function () {
           BigInt(1000e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
       await time.increase(180 * 24 * 3600);
       // console.log("remain", (await fsfiPool.getRemainingPool()) / BigInt(1e18));
@@ -500,7 +508,8 @@ describe("FSFI system", function () {
           BigInt(900e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
 
       await time.increase(30 * 24 * 3600);
@@ -565,7 +574,8 @@ describe("FSFI system", function () {
           BigInt(1000e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
 
       expect(BigInt(await usdc.balanceOf(borrower1)).toString()).to.eq(
@@ -656,7 +666,8 @@ describe("FSFI system", function () {
           BigInt(500e18),
           await wBTC.getAddress(),
           true,
-          false
+          false,
+          "0x000000000000000000000001"
         );
     });
 
@@ -693,6 +704,7 @@ describe("FSFI system", function () {
           BigInt(5e18),
           true,
           false,
+          "0x000000000000000000000000",
           { value: parseUnits("5", 18).toString() }
         );
 
@@ -737,7 +749,8 @@ describe("FSFI system", function () {
           BigInt(1000e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
 
       expect(BigInt(await usdc.balanceOf(borrower1)).toString()).to.eq(
@@ -781,7 +794,8 @@ describe("FSFI system", function () {
           BigInt(1000e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
 
       expect(BigInt(await usdc.balanceOf(borrower1)).toString()).to.eq(
@@ -827,7 +841,8 @@ describe("FSFI system", function () {
           BigInt(1000e18),
           await wBTC.getAddress(),
           false,
-          false
+          false,
+          "0x000000000000000000000000"
         );
 
       expect(BigInt(await usdc.balanceOf(borrower1)).toString()).to.eq(
