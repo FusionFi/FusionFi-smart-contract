@@ -49,7 +49,8 @@ interface IFSFIPool {
         uint _loanId,
         uint256 _amount,
         address _borrower,
-        bool _isFiat
+        bool _isFiat,
+        bytes12 _encryptusId
     ) external;
 
     function supply(uint256 _amount) external;
@@ -70,7 +71,8 @@ interface IFSFIPool {
     function initialize(
         IERC20Standard _stableCoinAddress,
         address interestRateStrategyAddress,
-        uint _cap
+        uint _cap,
+        address _encryptus
     ) external;
 
     function getTotalSupply() external view returns (uint256);

@@ -23,6 +23,13 @@ interface IFSFI {
         bool isETH
     );
 
+    event CreateFiatLoan(
+        address indexed borrower,
+        bytes12 encryptusId,
+        uint256 amount,
+        IERC20Standard stableCoin
+    );
+
     event AddCollateral(
         address indexed borrower,
         DataTypes.Loan loanInfo,
@@ -81,7 +88,8 @@ interface IFSFI {
         uint _amountCollateral,
         IERC20Standard _collateral,
         bool _isYieldGenerating,
-        bool _isFiat
+        bool _isFiat,
+        bytes12 _encryptusId
     ) external;
 
     // repay loan
@@ -130,7 +138,8 @@ interface IFSFI {
         IERC20Standard _stableCoin,
         uint _amountETH,
         bool _isYieldGenerating,
-        bool _isFiat
+        bool _isFiat,
+        bytes12 _encryptusId
     ) external payable;
 
     function estimateHealthFactor(
