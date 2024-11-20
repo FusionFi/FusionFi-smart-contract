@@ -47,6 +47,7 @@ library DataTypes {
         IERC20Standard stableCoin;
         bool isFinalty;
         bool isFiat;
+        bytes12 encryptusId;
         uint closedAmount;
     }
 

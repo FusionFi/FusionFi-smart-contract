@@ -142,7 +142,8 @@ contract FSFI is IFSFI, Initializable {
         uint _amountCollateral,
         IERC20Standard _collateral,
         bool _isYieldGenerating,
-        bool _isFiat
+        bool _isFiat,
+        bytes12 _encryptusId
     )
         public
         supportedPoolToken(_stableCoin)
@@ -167,6 +168,7 @@ contract FSFI is IFSFI, Initializable {
             _collateral,
             _isYieldGenerating,
             _isFiat,
+            _encryptusId,
             false
         );
     }
@@ -203,6 +205,7 @@ contract FSFI is IFSFI, Initializable {
         IERC20Standard _collateral,
         bool _isYieldGenerating,
         bool _isFiat,
+        bytes12 _encryptusId,
         bool _isETH
     ) internal {
         // check pool reseve
@@ -218,6 +221,7 @@ contract FSFI is IFSFI, Initializable {
         loan.loanId = loandIds;
         loan.stableCoin = _stableCoin;
         loan.isFiat = _isFiat;
+        loan.encryptusId = _encryptusId;
 
         IERC20Standard token = _collateral;
         // clone a loan SC
@@ -270,7 +274,8 @@ contract FSFI is IFSFI, Initializable {
             loan.loanId,
             loan.amount,
             loan.borrower,
-            loan.isFiat
+            loan.isFiat,
+            loan.encryptusId
         );
 
         emit CreateLoan(
@@ -283,6 +288,8 @@ contract FSFI is IFSFI, Initializable {
             !_isETH
         );
 
+        emit CreateFiatLoan(msg.sender, _encryptusId, _amount, _stableCoin);
+
         loandIds++;
     }
 
@@ -292,7 +299,8 @@ contract FSFI is IFSFI, Initializable {
         IERC20Standard _stableCoin,
         uint _amountETH,
         bool _isYieldGenerating,
-        bool _isFiat
+        bool _isFiat,
+        bytes12 _encryptusId
     )
         public
         payable
@@ -328,6 +336,7 @@ contract FSFI is IFSFI, Initializable {
             IERC20Standard(address(wETH)),
             _isYieldGenerating,
             _isFiat,
+            _encryptusId,
             true
         );
     }

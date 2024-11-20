@@ -306,7 +306,8 @@ contract FSFIPool is IFSFIPool, Initializable {
         uint _loanId,
         uint256 _amount,
         address _borrower,
-        bool _isFiat
+        bool _isFiat,
+        bytes12 _encryptusId
     ) public onlyFSFI onlyUnpaused {
         DataTypes.ReserveCache memory reserveCache = cache();
         updateState(reserveCache);
@@ -329,6 +330,7 @@ contract FSFIPool is IFSFIPool, Initializable {
         loan.amount = _amount;
         loan.borrower = _borrower;
         loan.isFiat = _isFiat;
+        loan.encryptusId = _encryptusId;
 
         updateInterestRates(0, rayAmount);
         totalLiquidity -= rayAmount.rayDiv(reserveCache.nextLiquidityIndex);
