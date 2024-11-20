@@ -2,9 +2,9 @@ import { bigint } from "hardhat/internal/core/params/argumentTypes";
 
 const { ethers } = require("hardhat");
 
-let pool = "0x72C038736F191e0868A05bFD6e0a6D6DFE8c0A3C";
-let fsfi = "0x0f78315aaC4F053Cf3D05999FD0A3bC3d40ab326";
-let usdtPool = "0xEBE2E725ef9f2f91182886223ef5fB576AC41808";
+let pool = "0xfC5139599fC71D4522891964860605E98A23eE6e";
+let fsfi = "0x3F67BD34FdD3002C499d39E51Bd8c6cB3C7e0998";
+let usdtPool = "0xd55fBb26d570DD80688345d9a3dd5F374270aAB4";
 
 // let fsfi = "0xB07c62E2a4E3da8465fa207965da12787b9188fc";
 // let usdtPool = "0xa00Ae2a3aeFd3002EDE22523E12BF28D4676596A";

@@ -43,12 +43,14 @@ const ProxyFSFIModule = buildModule("ProxyFSFIModule", (m) => {
     usdc,
     defaultReserveInterestRateStrategy,
     100000000000000,
+    proxyAdminOwner,
   ]);
 
   const dataPoolUSDT = m.encodeFunctionCall(FSFIPoolUSDT, "initialize", [
     usdt,
     defaultReserveInterestRateStrategy,
     100000000000000,
+    proxyAdminOwner,
   ]);
 
   const proxyPool = m.contract(
