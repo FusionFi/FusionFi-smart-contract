@@ -191,20 +191,6 @@ contract FSFILoan is IFSFILoan, Initializable {
 
         uint24 fee = IUniswapV3Pool(pool).fee();
 
-        // uint160 sqrtPriceLimitX96;
-        // {
-        //     (
-        //         uint160 sqrtPriceX96,
-        //         int24 tick,
-        //         uint16 observationIndex,
-        //         uint16 observationCardinality,
-        //         uint16 observationCardinalityNext,
-        //         uint8 feeProtocol,
-        //         bool unlocked
-        //     ) = IUniswapV3Pool(pool).slot0();
-        //     sqrtPriceLimitX96 = sqrtPriceX96;
-        // }
-
         IV3SwapRouter.ExactOutputSingleParams memory params = IV3SwapRouter
             .ExactOutputSingleParams({
                 tokenIn: address(tokenAddress),
@@ -297,16 +283,6 @@ contract FSFILoan is IFSFILoan, Initializable {
 
         uint24 fee = IUniswapV3Pool(pool).fee();
 
-        // (
-        //     uint160 sqrtPriceX96,
-        //     int24 tick,
-        //     uint16 observationIndex,
-        //     uint16 observationCardinality,
-        //     uint16 observationCardinalityNext,
-        //     uint8 feeProtocol,
-        //     bool unlocked
-        // ) = IUniswapV3Pool(pool).slot0();
-
         IQuoterV2.QuoteExactInputSingleParams memory params = IQuoterV2
             .QuoteExactInputSingleParams({
                 tokenIn: address(tokenAddress),
@@ -373,12 +349,23 @@ contract FSFILoan is IFSFILoan, Initializable {
         ) = iFSFIConfig.getPenalty();
         uint totalPenalty = penaltyLender + penaltyLiquidator + penaltyPlatform;
         uint amountOut = 0;
-        if (shareLender + sharePlatform > 0)
+        if (shareLender + sharePlatform > 0) {
             amountOut = quoteEarnForUSD(
                 shareLender + sharePlatform,
                 collateralToken,
                 initLoan.stableCoin
             );
+            // slippage 1%
+            require(
+                (((iFSFIConfig.getLatestPrice(collateralToken, false) *
+                    (shareLender + sharePlatform)) /
+                    iFSFIConfig.getLatestPrice(initLoan.stableCoin, true)) *
+                    99) /
+                    100 <=
+                    amountOut,
+                Errors.OVER_SLIPPAGE
+            );
+        }
         uint penalty = (_currentDebt * totalPenalty) / 10000;
         uint amountSwap = _currentDebt + penalty + amountOut;
         uint outUSD = swapTokenForUSD(

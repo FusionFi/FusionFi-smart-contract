@@ -30,4 +30,5 @@ library Errors {
     string public constant SC_IS_PAUSED = "21";
     string public constant ONLY_THE_BORROWER = "22";
     string public constant OVER_CAP = "23";
+    string public constant OVER_SLIPPAGE = "24";
 }
