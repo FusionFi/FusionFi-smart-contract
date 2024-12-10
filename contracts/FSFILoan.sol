@@ -256,15 +256,12 @@ contract FSFILoan is IFSFILoan, Initializable {
 
         uint24 fee = IUniswapV3Pool(pool).fee();
 
-        // (
-        //     uint160 sqrtPriceX96,
-        //     int24 tick,
-        //     uint16 observationIndex,
-        //     uint16 observationCardinality,
-        //     uint16 observationCardinalityNext,
-        //     uint8 feeProtocol,
-        //     bool unlocked
-        // ) = IUniswapV3Pool(pool).slot0();
+        // slippage 1%
+        uint256 outputExpected = (amountIn *
+            iFSFIConfig.getLatestPrice(tokenAddress, false) *
+            99) /
+            iFSFIConfig.getLatestPrice(stableCoin, true) /
+            100;
 
         IV3SwapRouter.ExactInputSingleParams memory params = IV3SwapRouter
             .ExactInputSingleParams({
@@ -273,7 +270,7 @@ contract FSFILoan is IFSFILoan, Initializable {
                 fee: fee,
                 recipient: address(this),
                 amountIn: amountIn,
-                amountOutMinimum: 0,
+                amountOutMinimum: outputExpected,
                 sqrtPriceLimitX96: 0
             });
 
